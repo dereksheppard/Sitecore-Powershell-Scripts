@@ -1,4 +1,4 @@
-[System.Web.Security.Membership]::GetAllUsers("sitecore\sheppad_admin", $false) |
+[System.Web.Security.Membership]::GetAllUsers() |
 
 Show-ListView -Property @{Label="User"; Expression={ $_.UserName} },
     @{Label="Is Online"; Expression={ $_.IsOnline} },
