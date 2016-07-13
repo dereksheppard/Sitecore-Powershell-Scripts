@@ -1,0 +1,8 @@
+[System.Web.Security.Membership]::GetAllUsers("sitecore\sheppad_admin", $false) |
+
+Show-ListView -Property @{Label="User"; Expression={ $_.UserName} },
+    @{Label="Is Online"; Expression={ $_.IsOnline} },
+    @{Label="Creation Date"; Expression={ $_.CreationDate} },
+    @{Label="Last Login Date"; Expression={ $_.LastLoginDate} },
+    @{Label="Email"; Expression={ $_.Email} }
+Close-Window
