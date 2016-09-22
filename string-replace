@@ -1,0 +1,17 @@
+$root = gi master:\sitecore\content\sites\PATHGOESHERE
+$items = $root | ls -r | %{$item = $_; $_.Fields  | ?{$_.TypeKey -eq "rich text"} }
+#$items.Count
+foreach($i in $items){
+    if($temp){
+        clear-variable("temp")
+    }
+    if($replaced){
+        clear-variable("replaced")
+    }
+
+    $replaced = $i.Value -replace 'STRING TO REPLACE', 'NEW STRING'
+    $temp = $i.Item
+    $temp.Editing.BeginEdit()
+    $temp.Fields[$i.Name].Value = $replaced
+    $temp.Editing.EndEdit()
+}
