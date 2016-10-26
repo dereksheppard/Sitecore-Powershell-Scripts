@@ -1,0 +1,3 @@
+
+@(Get-Item -Path master:/sitecore/content/Sites/PATH/) + @(Get-ChildItem -Path master:/sitecore/content/Sites/PATH/ -Recurse) |
+Reset-Layout
