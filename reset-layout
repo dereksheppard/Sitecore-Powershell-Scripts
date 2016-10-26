@@ -1,3 +1,11 @@
+<#
+
+Some packages have been installing in our dev environments without layout items assigned to the pages. 
+
+Point this script at the top-level of the site you want to fix, and it'll reset (ie: Add) the layout items to all the pages.
+
+#>
+
 
 @(Get-Item -Path master:/sitecore/content/Sites/PATH/) + @(Get-ChildItem -Path master:/sitecore/content/Sites/PATH/ -Recurse) |
 Reset-Layout
