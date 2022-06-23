@@ -1,0 +1,42 @@
+<#
+    SYNOPSIS
+        Creates a report of all media items.
+
+    INSTRUCTIONS
+        After Get-Item -Path, type the path of the parent you want to start with.
+        EX: master:\sitecore\content\sites\example
+        Put the same path after Get-ChildItem, which will crawl through and find all child pages.
+        It'll create a report that you can download.
+
+#>
+
+function Get-AllMedia {
+    $items = @(Get-Item -Path "web:\sitecore\media library\scripts") + @(Get-ChildItem -Path "web:\sitecore\media library\scripts" -Recurse)
+
+
+foreach($item in $items) {
+        if($item){
+        $item
+        }
+    }
+}
+
+$items = Get-AllMedia
+
+if($items.Count -eq 0) {
+    Show-Alert "There are no media items in this location."
+} else {
+    $props = @{
+        InfoTitle = "All media items in a site"
+        InfoDescription = "Lists all media items in a location."
+        PageSize = 25
+    }
+
+    $items |
+        Show-ListView @props -Property @{Label='Updated'; Expression={$_.__Updated} },
+            @{Label='Updated by'; Expression={$_.'__Updated by'} },
+            @{Label='Created'; Expression={$_.__Created} },
+            @{Label='Created by'; Expression={$_.'__Created by'} },
+            @{Label='Path'; Expression={$_.ItemPath} }
+}
+Close-Window
